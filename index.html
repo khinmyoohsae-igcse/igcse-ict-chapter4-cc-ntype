@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE ICT - Cloud Computing & Network Types Quiz (30 MCQs)</title>
+    <style>
+        :root {
+            --bg-main: #090d16;
+            --bg-card: #131d31;
+            --border-color: #223354;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        header h1 {
+            color: var(--accent);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-status {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .score-pill {
+            background-color: #0c4a6e;
+            color: #7dd3fc;
+            padding: 0.35rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #0284c7;
+        }
+
+        .card {
+            width: 100%;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            background-color: #1e293b;
+            color: var(--text-main);
+            padding: 1rem 1.25rem;
+            border-radius: 0.85rem;
+            border: 1px solid #334155;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: #283548;
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .option-btn.correct {
+            background-color: #064e3b !important;
+            border-color: #059669 !important;
+            color: #ecfdf5 !important;
+        }
+
+        .option-btn.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #dc2626 !important;
+            color: #fee2e2 !important;
+        }
+
+        .feedback-box {
+            padding: 1.15rem;
+            border-radius: 0.85rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .feedback-box.correct-feedback {
+            background-color: #022c22;
+            border: 1px solid #047857;
+            color: #a7f3d0;
+        }
+
+        .feedback-box.incorrect-feedback {
+            background-color: #450a0a;
+            border: 1px solid #b91c1c;
+            color: #fecdd3;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.85rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .results-card {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .results-card h2 {
+            font-size: 2.25rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .results-card p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>IGCSE ICT Practice Quiz</h1>
+        <p>Topics 4.1.4 Cloud Computing, 4.1.5 Network Environments, 4.1.6 Network Types</p>
+    </header>
+
+    <main>
+        <div class="quiz-status">
+            <span id="question-counter">Question 1 of 30</span>
+            <span id="score-display" class="score-pill">Score: 0</span>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="card">
+            <div id="question-box" class="question-text">
+                Loading question...
+            </div>
+
+            <div id="options-container" class="options-list">
+                <!-- Options populated dynamically -->
+            </div>
+
+            <div id="feedback-box" class="feedback-box hidden">
+                <!-- Feedback populated dynamically -->
+            </div>
+
+            <div style="display: flex; justify-content: flex-end;">
+                <button id="next-btn" onclick="nextQuestion()" class="btn-primary hidden">Next Question</button>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="results-container" class="card results-card hidden">
+            <h2>Quiz Completed! 🎉</h2>
+            <p id="final-score">You scored X out of 30</p>
+            <button onclick="restartQuiz()" class="btn-primary">Restart Quiz</button>
+        </div>
+    </main>
+
+    <footer>
+        IGCSE ICT Revision &bull; Cloud Storage & Network Types
+    </footer>
+
+    <script>
+        const questions = [
+            // 4.1.4 Cloud Computing (Storage) (Questions 1 to 10)
+            {
+                question: "What is cloud computing storage?",
+                options: [
+                    { text: "A model of computer data storage where digital files are stored on remote server farms accessed via the internet", isCorrect: true, rationale: "Cloud storage allows users to store and access files online via remote data servers rather than local hard drives." },
+                    { text: "Storing files locally inside a USB flash drive plugged into a laptop", isCorrect: false, rationale: "Local USB drives are physical offline storage, not cloud storage." },
+                    { text: "Printing physical paper documents in an office copier", isCorrect: false, rationale: "This describes physical printing." },
+                    { text: "Burning data onto optical Blu-ray discs", isCorrect: false, rationale: "This describes optical media storage." }
+                ]
+            },
+            {
+                question: "What is a major advantage of storing files in cloud storage compared to local hard drives?",
+                options: [
+                    { text: "Files can be accessed from any device anywhere in the world with an internet connection, and automated offsite backups prevent data loss", isCorrect: true, rationale: "Cloud storage provides global accessibility and automated backup safety against local computer damage or theft." },
+                    { text: "It requires zero internet bandwidth and works offline permanently", isCorrect: false, rationale: "Cloud storage requires internet access to upload and download files." },
+                    { text: "It guarantees absolute immunity to cyberattacks and server outages", isCorrect: false, rationale: "Cloud servers can experience downtime or security breaches." },
+                    { text: "It has zero financial cost for infinite petabytes of storage", isCorrect: false, rationale: "Cloud providers charge subscription fees for large storage capacities." }
+                ]
+            },
+            {
+                question: "What is a major disadvantage or risk of relying on cloud storage services?",
+                options: [
+                    { text: "If the internet connection is lost or the cloud server goes down, files cannot be accessed; plus there are privacy and security concerns", isCorrect: true, rationale: "Cloud reliance means offline lockouts during internet outages and third-party privacy vulnerabilities." },
+                    { text: "Cloud storage drives are extremely heavy and fragile when dropped", isCorrect: false, rationale: "Cloud storage is virtual and hosted in remote data centers, having no physical local weight." },
+                    { text: "Cloud files automatically delete themselves every hour", isCorrect: false, rationale: "Files persist until deleted by the user." },
+                    { text: "Cloud storage requires manual winding of magnetic tape reels", isCorrect: false, rationale: "This is tape archiving." }
+                ]
+            },
+            {
+                question: "What is file syncing in cloud storage applications?",
+                options: [
+                    { text: "The automatic updating of files across multiple devices so that any change made on one device is reflected everywhere instantly", isCorrect: true, rationale: "Syncing keeps local and cloud copies identical across smartphones, tablets, and computers." },
+                    { text: "The physical printing of paper spreadsheets", isCorrect: false, rationale: "This is printing." },
+                    { text: "The burning of optical discs in a CD writer", isCorrect: false, rationale: "This is optical writing." },
+                    { text: "The formatting of hard disk sectors", isCorrect: false, rationale: "This is disk formatting." }
+                ]
+            },
+            {
+                question: "What is public cloud storage?",
+                options: [
+                    { text: "Cloud storage services hosted by third-party providers (like Google Drive, OneDrive, or Dropbox) shared among multiple users over the public internet", isCorrect: true, rationale: "Public cloud providers host storage infrastructure shared by millions of public users." },
+                    { text: "An internal hard drive installed inside a single standalone office desktop PC", isCorrect: false, rationale: "This is local internal storage." },
+                    { text: "A physical USB flash drive handed out on the street", isCorrect: false, rationale: "This is physical portable storage." },
+                    { text: "A paper filing cabinet in a town hall", isCorrect: false, rationale: "This is physical paper archiving." }
+                ]
+            },
+            {
+                question: "What is private cloud storage?",
+                options: [
+                    { text: "A dedicated cloud infrastructure used exclusively by a single organization, offering higher security and control", isCorrect: true, rationale: "Private clouds are managed internally or hosted securely for one specific organization." },
+                    { text: "A public social media photo album shared with everyone on Facebook", isCorrect: false, rationale: "This is public sharing, not private cloud storage." },
+                    { text: "An unencrypted USB stick left in a public coffee shop", isCorrect: false, rationale: "This is insecure local storage." },
+                    { text: "A broadcast radio station signal", isCorrect: false, rationale: "This is broadcasting." }
+                ]
+            },
+            {
+                question: "What is hybrid cloud storage?",
+                options: [
+                    { text: "A setup combining public and private cloud environments, allowing data and apps to be shared between them securely", isCorrect: true, rationale: "Hybrid clouds blend local private infrastructure with scalable public cloud services." },
+                    { text: "A storage drive that uses both magnetic tape and optical discs inside one box", isCorrect: false, rationale: "This is not what hybrid cloud means." },
+                    { text: "A computer that runs both Windows and macOS simultaneously", isCorrect: false, rationale: "This is dual-booting operating systems." },
+                    { text: "A printer that prints in both black ink and color toner", isCorrect: false, rationale: "This is color printing." }
+                ]
+            },
+            {
+                question: "How does cloud storage achieve high data reliability and disaster recovery protection?",
+                options: [
+                    { text: "By automatically replicating and storing multiple redundant copies of files across geographically separate server data centers", isCorrect: true, rationale: "Cloud providers back up data across multiple remote server locations to prevent data loss if one data center fails." },
+                    { text: "By storing only one single copy of files on a local desktop computer", isCorrect: false, rationale: "Single copies risk total loss if the local drive crashes." },
+                    { text: "By printing paper hard copies of all digital files daily", isCorrect: false, rationale: "Cloud backup is entirely digital." },
+                    { text: "By storing data inside non-volatile RAM memory chips without backups", isCorrect: false, rationale: "RAM is volatile and not used for cloud backing up." }
+                ]
+            },
+            {
+                question: "What security measures are essential when uploading sensitive personal files to cloud storage?",
+                options: [
+                    { text: "Strong passwords, multi-factor authentication (MFA), and data encryption (both in transit and at rest)", isCorrect: true, rationale: "Encryption and multi-factor authentication protect cloud files from unauthorized access and cyber theft." },
+                    { text: "Leaving user account passwords blank for easy login", isCorrect: false, rationale: "Blank passwords create severe security vulnerabilities." },
+                    { text: "Writing passwords on sticky notes attached to monitor screens", isCorrect: false, rationale: "This compromises physical security." },
+                    { text: "Turning off all computer firewalls", isCorrect: false, rationale: "Disabling firewalls leaves systems exposed to malware." }
+                ]
+            },
+            {
+                question: "Which of the following scenarios is the best use case for cloud storage rather than a local USB flash drive?",
+                options: [
+                    { text: "Collaborating on a shared spreadsheet simultaneously with colleagues located in different countries", isCorrect: true, rationale: "Cloud storage enables real-time multi-user file sharing and document collaboration across global locations." },
+                    { text: "Transferring a single offline file between two laptops sitting on the same desk without internet", isCorrect: false, rationale: "A local USB drive works well without internet." },
+                    { text: "Printing paper receipts on a thermal shop till", isCorrect: false, rationale: "This requires a thermal receipt printer." },
+                    { text: "Scanning supermarket barcodes at checkout tills", isCorrect: false, rationale: "This requires a barcode scanner." }
+                ]
+            },
+
+            // 4.1.5 Common Network Environments (Questions 11 to 20)
+            {
+                question: "What is an Intranet?",
+                options: [
+                    { text: "A private corporate computer network accessible only to authorized internal members (such as employees of an organization)", isCorrect: true, rationale: "An Intranet uses internet technologies (web browsers/servers) internally within a secure organizational boundary." },
+                    { text: "The global public internet accessible to anyone worldwide", isCorrect: false, rationale: "The global public network is the Internet, not an Intranet." },
+                    { text: "A wireless Bluetooth connection between a phone and a headset", isCorrect: false, rationale: "This describes a personal area network." },
+                    { text: "A public social media network", isCorrect: false, rationale: "This is public social media." }
+                ]
+            },
+            {
+                question: "What is an Extranet?",
+                options: [
+                    { text: "A private network that allows controlled, secure external access from trusted outsiders (such as suppliers, partners, or clients)", isCorrect: true, rationale: "An Extranet extends an Intranet securely to authorized external stakeholders via login credentials." },
+                    { text: "A public website open to everyone on the internet without restriction", isCorrect: false, rationale: "Public websites are open to all, whereas Extranets require special authorization." },
+                    { text: "A disconnected standalone computer with no network cables", isCorrect: false, rationale: "This is a standalone computer." },
+                    { text: "An optical disc storage directory", isCorrect: false, rationale: "This is optical storage." }
+                ]
+            },
+            {
+                question: "What is the global Internet?",
+                options: [
+                    { text: "A massive global public system of interconnected computer networks spanning the entire world", isCorrect: true, rationale: "The Internet is the worldwide public network linking millions of private, public, academic, and business networks." },
+                    { text: "A private local network restricted strictly to employees inside a single office building", isCorrect: false, rationale: "This describes an Intranet or LAN." },
+                    { text: "A closed military database disconnected from all other computers", isCorrect: false, rationale: "This describes a closed offline intranet." },
+                    { text: "A software application for editing digital photographs", isCorrect: false, rationale: "This is photo editing software." }
+                ]
+            },
+            {
+                question: "What is the World Wide Web (WWW)?",
+                options: [
+                    { text: "A collection of interlinked multimedia web pages and documents accessed via the Internet using web browsers and HTTP/HTTPS", isCorrect: true, rationale: "The WWW is an information service running on top of the physical Internet infrastructure." },
+                    { text: "The physical copper cables and fibre optic lines laid under the ocean", isCorrect: false, rationale: "Cables form the physical Internet infrastructure, not the Web." },
+                    { text: "A wireless Bluetooth protocol for connecting headphones", isCorrect: false, rationale: "This describes Bluetooth." },
+                    { text: "A magnetic tape backup archive system", isCorrect: false, rationale: "This is tape storage." }
+                ]
+            },
+            {
+                question: "What is a major security difference between the Internet and an Intranet?",
+                options: [
+                    { text: "An Intranet is restricted and heavily protected behind firewalls for internal users only, whereas the Internet is public and accessible to anyone worldwide", isCorrect: true, rationale: "Intranets restrict access to authorized internal members, while the Internet is open to the global public." },
+                    { text: "The Internet requires zero electricity, while Intranets require constant power", isCorrect: false, rationale: "Both require electrical power." },
+                    { text: "Intranets use magnetic tape, while the Internet uses optical discs", isCorrect: false, rationale: "Both use standard network transmission media." },
+                    { text: "There is no security difference between them", isCorrect: false, rationale: "Intranets offer private controlled security, unlike the open public internet." }
+                ]
+            },
+            {
+                question: "Why might a large multinational company use an Intranet for internal employee communications?",
+                options: [
+                    { text: "To share confidential company policies, HR forms, and internal newsletters securely without exposing them to public internet risks", isCorrect: true, rationale: "Intranets provide a secure platform for internal corporate communication and document sharing." },
+                    { text: "To broadcast movies and video games to the general public online", isCorrect: false, rationale: "Broadcasting to the general public uses the public Internet." },
+                    { text: "To print paper postal mail envelopes", isCorrect: false, rationale: "This is postal mailing." },
+                    { text: "To scan supermarket customer barcodes", isCorrect: false, rationale: "This uses barcode scanners." }
+                ]
+            },
+            {
+                question: "What is a practical use case for an Extranet in modern business supply chains?",
+                options: [
+                    { text: "Allowing external parts suppliers to securely check company inventory levels and stock orders in real-time", isCorrect: true, rationale: "Extranets give trusted suppliers secure limited access to inventory and order databases." },
+                    { text: "Allowing public shoppers to buy retail items on an open e-commerce website", isCorrect: false, rationale: "Open online shopping uses public web servers, not an Extranet." },
+                    { text: "Playing offline video games on a single home console", isCorrect: false, rationale: "This is gaming." },
+                    { text: "Measuring room temperature in a greenhouse", isCorrect: false, rationale: "This uses sensors." }
+                ]
+            },
+            {
+                question: "What is a web browser used for on the World Wide Web?",
+                options: [
+                    { text: "To retrieve, format, and display web pages and multimedia content from web servers", isCorrect: true, rationale: "Web browsers (like Chrome, Safari, Edge) render HTML web pages for users." },
+                    { text: "To burn data onto blank optical CD-R discs", isCorrect: false, rationale: "This is optical burning software." },
+                    { text: "To physically print documents onto paper sheets", isCorrect: false, rationale: "This is printer driver software." },
+                    { text: "To manage hard disk partition tables", isCorrect: false, rationale: "This is disk management software." }
+                ]
+            },
+            {
+                question: "What is a web server?",
+                options: [
+                    { text: "A powerful computer that stores website files (HTML, images, scripts) and delivers them to user web browsers over the internet", isCorrect: true, rationale: "Web servers host websites and respond to browser requests." },
+                    { text: "A waiter serving meals in a restaurant", isCorrect: false, rationale: "This is catering." },
+                    { text: "A portable USB pen drive", isCorrect: false, rationale: "This is flash storage." },
+                    { text: "A wireless mouse adapter", isCorrect: false, rationale: "This is a peripheral dongle." }
+                ]
+            },
+            {
+                question: "Which of the following statements correctly contrasts the Internet and the World Wide Web?",
+                options: [
+                    { text: "The Internet is the physical hardware network of interconnected computers globally, whereas the Web is the collection of web pages hosted on that network", isCorrect: true, rationale: "The Internet is the underlying physical infrastructure; the Web is the information service running on top of it." },
+                    { text: "The Web is physical cables, while the Internet is software web pages", isCorrect: false, rationale: "This is completely reversed." },
+                    { text: "The Internet and the World Wide Web are exact synonyms with identical meanings", isCorrect: false, rationale: "They represent hardware infrastructure versus information service." },
+                    { text: "Neither the Internet nor the Web use computers", isCorrect: false, rationale: "Both rely entirely on computer networks." }
+                ]
+            },
+
+            // 4.1.6 Network Types (Questions 21 to 30)
+            {
+                question: "What is a Local Area Network (LAN)?",
+                options: [
+                    { text: "A computer network that connects computers and devices within a limited geographical area, such as a single room, school, or office building", isCorrect: true, rationale: "LANs cover small areas and are typically owned and managed privately." },
+                    { text: "A global network connecting countries across different continents", isCorrect: false, rationale: "This describes a WAN." },
+                    { text: "A short-range Bluetooth connection between a mouse and a laptop", isCorrect: false, rationale: "This describes a WPAN." },
+                    { text: "A satellite broadcasting network in outer space", isCorrect: false, rationale: "This is satellite communication." }
+                ]
+            },
+            {
+                question: "What is a Wide Area Network (WAN)?",
+                options: [
+                    { text: "A network that connects computers and local networks across large geographical distances, such as across countries or the entire world (e.g., the Internet)", isCorrect: true, rationale: "WANs span wide distances, often utilizing telecommunication links and leased lines." },
+                    { text: "A network restricted strictly to a single office desktop computer", isCorrect: false, rationale: "A single computer is a standalone device." },
+                    { text: "A home Wi-Fi network inside a living room", isCorrect: false, rationale: "This is a LAN." },
+                    { text: "A local printer connected via USB", isCorrect: false, rationale: "This is a direct peripheral connection." }
+                ]
+            },
+            {
+                question: "What is a Wireless Local Area Network (WLAN)?",
+                options: [
+                    { text: "A LAN that uses wireless network technology (such as Wi-Fi) rather than physical copper cables to connect devices", isCorrect: true, rationale: "WLANs provide local wireless network connectivity within a building or campus using radio waves." },
+                    { text: "A global satellite internet network", isCorrect: false, rationale: "This is a WAN." },
+                    { text: "A wired Ethernet cable network", isCorrect: false, rationale: "Ethernet is wired, not wireless." },
+                    { text: "A magnetic tape archiving system", isCorrect: false, rationale: "This is storage." }
+                ]
+            },
+            {
+                question: "What is a Personal Area Network (PAN)?",
+                options: [
+                    { text: "A computer network organized around an individual person within a very close range (typically within 10 meters), often using Bluetooth", isCorrect: true, rationale: "PANs connect personal devices like smartphones, smartwatches, and wireless headphones." },
+                    { text: "A corporate network connecting 50 branch offices across Europe", isCorrect: false, rationale: "This describes a WAN." },
+                    { text: "A public municipal city-wide Wi-Fi network", isCorrect: false, rationale: "This describes a MAN." },
+                    { text: "A school campus computer lab network", isCorrect: false, rationale: "This describes a LAN." }
+                ]
+            },
+            {
+                question: "What is a Metropolitan Area Network (MAN)?",
+                options: [
+                    { text: "A computer network that covers a larger geographic area than a LAN, typically spanning an entire city, town, or campus", isCorrect: true, rationale: "MANs bridge multiple LANs across a municipal city area." },
+                    { text: "A tiny personal network connecting a smartwatch to a wrist", isCorrect: false, rationale: "This is a PAN." },
+                    { text: "A global network connecting different countries worldwide", isCorrect: false, rationale: "This is a WAN." },
+                    { text: "A standalone computer with no network connections", isCorrect: false, rationale: "This is a standalone PC." }
+                ]
+            },
+            {
+                question: "What are the typical ownership characteristics of a LAN versus a WAN?",
+                options: [
+                    { text: "A LAN is typically privately owned and managed by a single organization, whereas a WAN often relies on third-party telecommunication service providers", isCorrect: true, rationale: "Organizations own their internal LAN hardware, while WANs lease telecom lines spanning public distances." },
+                    { text: "A LAN is owned by the United Nations, while a WAN is owned by individuals", isCorrect: false, rationale: "This is incorrect." },
+                    { text: "Neither LANs nor WANs have any owners", isCorrect: false, rationale: "Networks have administrative owners and operators." },
+                    { text: "WANs are owned exclusively by school headteachers", isCorrect: false, rationale: "This is false." }
+                ]
+            },
+            {
+                question: "What is a major advantage of a LAN compared to standalone computers?",
+                options: [
+                    { text: "Users can easily share hardware peripherals (like network printers), share files, and collaborate on shared databases", isCorrect: true, rationale: "LAN resource sharing improves efficiency and eliminates the need for duplicate hardware." },
+                    { text: "LAN computers require zero electrical power to operate", isCorrect: false, rationale: "All network devices require electricity." },
+                    { text: "LAN computers cannot connect to printers", isCorrect: false, rationale: "LANs allow printer sharing." },
+                    { text: "LANs eliminate the need for any computer operating system", isCorrect: false, rationale: "Operating systems are essential." }
+                ]
+            },
+            {
+                question: "What is a major disadvantage of a WAN compared to a local LAN?",
+                options: [
+                    { text: "WANs generally have slower data transfer speeds, higher latency, higher setup costs, and greater security vulnerabilities due to spanning public distances", isCorrect: true, rationale: "Long distances and public telecommunication links introduce higher latency and security risks on WANs." },
+                    { text: "WANs are physically too small to connect more than one computer", isCorrect: false, rationale: "WANs cover massive global distances." },
+                    { text: "WANs cannot connect to the Internet", isCorrect: false, rationale: "The Internet is the largest WAN." },
+                    { text: "WANs require physical copper cables to be held by hand", isCorrect: false, rationale: "This is absurd." }
+                ]
+            },
+            {
+                question: "Which network type would a university campus spanning multiple buildings across a single town typically use to connect its computer systems?",
+                options: [
+                    { text: "MAN (Metropolitan Area Network) or a combination of interconnected LANs", isCorrect: true, rationale: "A campus network spans a town or large property, fitting the definition of a MAN or campus LAN." },
+                    { text: "A tiny PAN connecting a single smartwatch", isCorrect: false, rationale: "A PAN is far too small for a university campus." },
+                    { text: "A magnetic tape archive drive", isCorrect: false, rationale: "This is storage, not a network type." },
+                    { text: "A standalone unlinked calculator", isCorrect: false, rationale: "This is not a network." }
+                ]
+            },
+            {
+                question: "Which summary best encapsulates network types (PAN, LAN, WLAN, MAN, WAN) in IGCSE ICT Chapter 4?",
+                options: [
+                    { text: "Networks are classified by geographical scale and technology: PANs cover personal space, LANs/WLANs cover rooms or buildings, MANs cover cities, and WANs cover global distances", isCorrect: true, rationale: "Network classification is based on physical scale and transmission media, ranging from personal PANs to global WANs." },
+                    { text: "All computer networks span the exact same physical distance and use identical protocols", isCorrect: false, rationale: "Scale and scope vary widely across network types." },
+                    { text: "Networks are classified by their physical color and brand name", isCorrect: false, rationale: "Classification is based on geographic reach and architecture." },
+                    { text: "Network types are obsolete and no longer used in modern computing", isCorrect: false, rationale: "Network types are foundational ICT syllabus concepts." }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        const questionCounter = document.getElementById("question-counter");
+        const scoreDisplay = document.getElementById("score-display");
+        const questionBox = document.getElementById("question-box");
+        const optionsContainer = document.getElementById("options-container");
+        const feedbackBox = document.getElementById("feedback-box");
+        const nextBtn = document.getElementById("next-btn");
+        const quizContainer = document.getElementById("quiz-container");
+        const resultsContainer = document.getElementById("results-container");
+        const finalScore = document.getElementById("final-score");
+
+        function loadQuestion() {
+            answered = false;
+            feedbackBox.classList.add("hidden");
+            nextBtn.classList.add("hidden");
+            
+            const q = questions[currentQuestionIndex];
+            questionCounter.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            scoreDisplay.textContent = `Score: ${score}`;
+            questionBox.textContent = q.question;
+
+            // Shuffle options array randomly so correct answer is not always first
+            let shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+
+            optionsContainer.innerHTML = "";
+            shuffledOptions.forEach((opt) => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.textContent = opt.text;
+                btn.onclick = () => selectOption(opt, shuffledOptions);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedOpt, shuffledOptions) {
+            if (answered) return;
+            answered = true;
+
+            const allOptionButtons = optionsContainer.children;
+
+            shuffledOptions.forEach((opt, idx) => {
+                allOptionButtons[idx].disabled = true;
+                if (opt.isCorrect) {
+                    allOptionButtons[idx].classList.add("correct");
+                } else if (opt === selectedOpt && !selectedOpt.isCorrect) {
+                    allOptionButtons[idx].classList.add("incorrect");
+                }
+            });
+
+            feedbackBox.classList.remove("hidden");
+            if (selectedOpt.isCorrect) {
+                score++;
+                scoreDisplay.textContent = `Score: ${score}`;
+                feedbackBox.className = "feedback-box correct-feedback";
+                feedbackBox.innerHTML = `<strong>Correct!</strong> ${selectedOpt.rationale}`;
+            } else {
+                feedbackBox.className = "feedback-box incorrect-feedback";
+                feedbackBox.innerHTML = `<strong>Incorrect.</strong> ${selectedOpt.rationale}`;
+            }
+
+            if (currentQuestionIndex < questions.length - 1) {
+                nextBtn.textContent = "Next Question";
+            } else {
+                nextBtn.textContent = "View Results";
+            }
+            nextBtn.classList.remove("hidden");
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                quizContainer.classList.add("hidden");
+                resultsContainer.classList.remove("hidden");
+                finalScore.textContent = `You scored ${score} out of ${questions.length}`;
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            resultsContainer.classList.add("hidden");
+            quizContainer.classList.remove("hidden");
+            loadQuestion();
+        }
+
+        // Initialize quiz on load
+        loadQuestion();
+    </script>
+</body>
+</html>
